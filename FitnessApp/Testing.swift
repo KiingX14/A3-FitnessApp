@@ -5,10 +5,18 @@
 //  Created by Le Hoang Thanh Lam on 4/5/2025.
 //
 
-import Foundation
+import SwiftUI
 
-struct Testing {
-    static func main() {
-        print("Test Test Test")
+struct Testing: View {
+    var body: some View {
+        VStack {
+            Text(greet(name: "Lam"))
+                .padding()
+        }
+    }
+
+    func greet(name: String) -> String {
+        return "Hello, \(name)!"
     }
 }
+
