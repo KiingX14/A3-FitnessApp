@@ -10,8 +10,6 @@ import SwiftUI
 struct Testing: View {
     var body: some View {
         VStack {
-            Text(greet(name: "Lam"))
-                .padding()
         }
     }
 

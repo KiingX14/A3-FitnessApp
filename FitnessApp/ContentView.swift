@@ -8,16 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var username: String = ""
+    @State private var nameEntered: Bool = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            HStack {
+                    TextField("Username: ", text: $username)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    NavigationLink(destination: MenuView()) {
+                        Text("Enter")
+                    }
+                    
+                }
+            .padding()
+            }
+            
         }
-        .padding()
+        
     }
-}
+
 
 #Preview {
     ContentView()
