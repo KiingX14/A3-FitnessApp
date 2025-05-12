@@ -40,7 +40,7 @@ struct NewWorkoutView: View {
                 Section {
                     Button("Start Workout") {
                         guard !workoutName.isEmpty else { return }
-                        trackingManager.startWorkout(workoutName: workoutName)
+                        _ = trackingManager.startWorkout(workoutName: workoutName)
                         dismiss()
                     }
                     .disabled(workoutName.isEmpty)
