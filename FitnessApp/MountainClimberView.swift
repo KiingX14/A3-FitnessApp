@@ -15,10 +15,10 @@ struct MountainClimberView: View {
                 .scaledToFit()
                 .frame(height: 200)
             
-            Text("Mountain Climber")
+            Text("Mountain Climber").font(.headline).foregroundColor(.white)
                 .font(.title)
                 .fontWeight(.bold)
-            Text("Get your heart rate up and get your blood flowing")
+            Text("Get your heart rate up and get your blood flowing").font(.headline).foregroundColor(.white)
         
 
             }

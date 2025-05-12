@@ -15,10 +15,10 @@ struct CommunityView: View {
             List(viewModel.posts) { post in
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
-                        Text(post.username)
+                        Text(post.username).font(.headline).foregroundColor(.white)
                             .font(.headline)
                         Spacer()
-                        Text(post.timestamp)
+                        Text(post.timestamp).font(.headline).foregroundColor(.white)
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
@@ -31,4 +31,3 @@ struct CommunityView: View {
         }
     }
 }
-
