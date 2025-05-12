@@ -9,9 +9,17 @@ import SwiftUI
 
 struct ReminderView: View {
     var body: some View {
-        NavigationView {
             VStack {
+                NavigationLink(destination: NewReminderView()) {
+                    Text("New Reminder")
+                }
+                NavigationLink(destination: MenuView()) {
+                    Text("Upcoming Reminders")
+                }
+                NavigationLink(destination: MenuView()) {
+                    Text("Past Reminders")
+                }
             }
-        }
+        
     }
 }

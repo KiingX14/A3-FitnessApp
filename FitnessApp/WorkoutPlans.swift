@@ -9,9 +9,12 @@ import SwiftUI
 
 struct WorkoutPlanView: View {
     var body: some View {
-        NavigationView {
             VStack {
             }
-        }
+        
+    }
+    
+    func createWorkoutPlan() {
+        
     }
 }

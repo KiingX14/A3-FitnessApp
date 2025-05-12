@@ -9,9 +9,8 @@ import SwiftUI
 
 struct WorkoutTrackingView: View {
     var body: some View {
-        NavigationView {
             VStack {
             }
-        }
+        
     }
 }

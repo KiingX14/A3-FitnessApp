@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MenuView: View {
     var body: some View {
-        NavigationView {
             VStack {
                 NavigationLink(destination: WorkoutPlanView()) {
                     Text("Workout Plans")
@@ -27,6 +26,7 @@ struct MenuView: View {
                     Text("Community")
                 }
             }
-        }
+        
+        
     }
 }

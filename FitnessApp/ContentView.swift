@@ -6,17 +6,21 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct ContentView: View {
+    
     @State private var username: String = ""
     @State private var nameEntered: Bool = false
     
     var body: some View {
+        
         NavigationView {
             HStack {
                     TextField("Username: ", text: $username)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
+                        .onAppear{requestNote()}
                     NavigationLink(destination: MenuView()) {
                         Text("Enter")
                     }
@@ -26,6 +30,15 @@ struct ContentView: View {
             }
             
         }
+    func requestNote() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                print("Granted")
+            } else {
+                print("Not granted")
+            }
+        }
+    }
         
     }
 
