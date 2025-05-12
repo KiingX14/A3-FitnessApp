@@ -1,10 +1,23 @@
+//
+//  WorkoutTrackingComponents.swift
+//  FitnessApp
+//
+//  Created by William Tan on 12/5/2025.
+//
+
 import SwiftUI
 
 // MARK: - Reusable UI Components
 
+/// Component for displaying a statistic with icon and value
 struct StatCard: View {
+    /// The numeric value to display
     let value: String
+    
+    /// The unit of measurement (e.g. "min", "cal")
     let unit: String
+    
+    /// SF Symbol name for the icon
     let icon: String
     
     var body: some View {
@@ -26,5 +39,59 @@ struct StatCard: View {
         .padding(.vertical, 8)
         .background(Color.gray.opacity(0.1))
         .cornerRadius(8)
+    }
+}
+
+/// Banner showing the currently active workout and its duration
+struct ActiveWorkoutBanner: View {
+    /// The active workout session
+    let session: WorkoutSession
+    
+    /// Access to workout tracking functionality
+    @StateObject private var trackingManager = WorkoutTrackingManager.shared
+    
+    /// Controls display of the completion sheet
+    @State private var showingCompletionSheet = false
+    
+    var body: some View {
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Active Workout")
+                        .font(.headline)
+                    Text(session.workoutName)
+                        .font(.subheadline)
+                }
+                
+                Spacer()
+                
+                // Elapsed time
+                Text(formatDuration(session.durationInSeconds))
+                    .font(.title2)
+                    .monospacedDigit()
+                    .foregroundColor(.primary)
+            }
+            
+            Button("Complete Workout") {
+                showingCompletionSheet = true
+            }
+            .buttonStyle(.borderedProminent)
+            .padding(.top, 8)
+        }
+        .padding()
+        .background(Color.blue.opacity(0.1))
+        .cornerRadius(12)
+        .sheet(isPresented: $showingCompletionSheet) {
+            WorkoutCompletionView()
+        }
+    }
+    
+    /// Formats duration in seconds to MM:SS format
+    /// - Parameter seconds: Duration in seconds
+    /// - Returns: Formatted string (e.g. "05:30")
+    private func formatDuration(_ seconds: Int) -> String {
+        let minutes = seconds / 60
+        let remainingSeconds = seconds % 60
+        return String(format: "%02d:%02d", minutes, remainingSeconds)
     }
 }

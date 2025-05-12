@@ -1,14 +1,36 @@
+//
+//  WorkoutCompletionView.swift
+//  FitnessApp
+//
+//  Created by William Tan on 12/5/2025.
+//
+
 import SwiftUI
 
+/// View for completing a workout
+/// Allows the user to mark exercises as completed, rate the workout,
+/// select their mood, and add notes
 struct WorkoutCompletionView: View {
+    /// Environment variable for dismissing the view
     @Environment(\.dismiss) private var dismiss
+    
+    /// Access to workout tracking functionality
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
+    
+    /// User's rating of the workout (1-5 stars)
     @State private var userRating: Int?
+    
+    /// User's notes about the workout
     @State private var notes = ""
+    
+    /// User's mood after the workout
     @State private var selectedMood: MoodType?
+    
+    /// List of exercises with completion status
     @State private var exercises: [ExerciseCompletion] = []
     
-    // Sample exercises - in a real app, you'd get these from your exercise library
+    /// Sample exercises - in a real app, you'd get these from your exercise library
+    /// This would be replaced with data from the ExerciseLibrary component
     private let sampleExercises = ["Push-ups", "Squats", "Lunges", "Plank", "Jumping Jacks"]
     
     var body: some View {
@@ -107,6 +129,9 @@ struct WorkoutCompletionView: View {
         }
     }
     
+    /// Returns an SF Symbol name for each mood type
+    /// - Parameter mood: The mood to get an icon for
+    /// - Returns: SF Symbol name representing the mood
     private func moodIcon(for mood: MoodType) -> String {
         switch mood {
         case .energized: return "bolt.fill"
@@ -115,5 +140,13 @@ struct WorkoutCompletionView: View {
         case .tired: return "powersleep"
         case .exhausted: return "bolt.horizontal.fill"
         }
+    }
+}
+
+/// Preview provider for SwiftUI canvas
+struct WorkoutCompletionView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Note: This preview may not work properly since it requires an active workout
+        WorkoutCompletionView()
     }
 }

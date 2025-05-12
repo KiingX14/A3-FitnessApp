@@ -2,15 +2,21 @@
 //  WorkoutTracking.swift
 //  FitnessApp
 //
-//  Created by Nathan Nourse on 9/5/2025.
+//  Created by William Tan on 12/5/2025.
 //
 
 import SwiftUI
 
 /// Main workout tracking view - the primary entry point for the workout tracking feature
+/// This view displays the workout history, current streak, and active workout banner
 struct WorkoutTrackingView: View {
+    /// Access to workout data and functionality
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
+    
+    /// Controls display of the new workout form
     @State private var showingWorkoutForm = false
+    
+    /// Currently selected workout for detail view
     @State private var selectedSession: WorkoutSession?
     
     var body: some View {
@@ -73,6 +79,51 @@ struct WorkoutTrackingView: View {
     }
 }
 
-#Preview {
-    WorkoutTrackingView()
+/// Preview provider for SwiftUI canvas
+struct WorkoutTrackingView_Previews: PreviewProvider {
+    static var previews: some View {
+        WorkoutTrackingView()
+    }
+}
+
+/// Component for displaying a workout session in the history list
+struct WorkoutHistoryRow: View {
+    /// The workout session to display
+    let session: WorkoutSession
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(session.workoutName)
+                .font(.headline)
+            
+            HStack {
+                Label(session.date.formatted(date: .abbreviated, time: .shortened), systemImage: "calendar")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                
+                Spacer()
+                
+                Label("\(session.durationInSeconds / 60) min", systemImage: "clock")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            
+            // Show completion percentage
+            ProgressView(value: session.completionPercentage / 100)
+                .tint(completionColor(for: session.completionPercentage))
+                .padding(.top, 4)
+        }
+        .padding(.vertical, 4)
+    }
+    
+    /// Returns a color based on completion percentage
+    /// - Parameter percentage: Completion percentage (0-100)
+    /// - Returns: Color representing the completion level
+    private func completionColor(for percentage: Double) -> Color {
+        switch percentage {
+        case 0..<50: return .red
+        case 50..<80: return .orange
+        default: return .green
+        }
+    }
 }
