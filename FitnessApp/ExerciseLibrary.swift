@@ -16,7 +16,7 @@ struct ExerciseLibraryView: View {
                 NavigationLink(destination: MenuView()) {
                     Text("Squat")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: MountainClimberView()) {
                     Text("Mountain Climber")
                 }
                 NavigationLink(destination: MenuView()) {
