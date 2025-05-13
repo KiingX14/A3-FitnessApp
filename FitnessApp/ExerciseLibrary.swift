@@ -10,37 +10,37 @@ import SwiftUI
 struct ExerciseLibraryView: View {
     var body: some View {
             VStack {
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: PushUpView()) {
                     Text("Push Up")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: SquatView()) {
                     Text("Squat")
                 }
                 NavigationLink(destination: MountainClimberView()) {
                     Text("Mountain Climber")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: PlankView()) {
                     Text("Plank")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: SidePlankView()) {
                     Text("Side Plank")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: WallSitView()) {
                     Text("Wall Sit")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: LungeView()) {
                     Text("Lunge")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: SitUpView()) {
                     Text("Sit Up")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: CrunchView()) {
                     Text("Crunch")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: SpiderCrawlView()) {
                     Text("Spider Crawl")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: JoggingView()) {
                     Text("Jogging")
                 }
             }
