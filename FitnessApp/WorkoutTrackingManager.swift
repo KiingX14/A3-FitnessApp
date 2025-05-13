@@ -183,4 +183,16 @@ class WorkoutTrackingManager: ObservableObject {
         
         saveWorkoutHistory()
     }
+
+    /// Cancels the current workout without saving it
+    func cancelWorkout() {
+    // Stop timer
+        timer?.invalidate()
+        timer = nil
+    
+    // Reset tracking state
+        currentSession = nil
+        isWorkoutActive = false
+        startTime = nil
+    }
 }

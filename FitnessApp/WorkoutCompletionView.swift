@@ -7,55 +7,56 @@
 
 import SwiftUI
 
-/// View for completing a workout
-/// Allows the user to mark exercises as completed, rate the workout,
-/// select their mood, and add notes
 struct WorkoutCompletionView: View {
-    /// Environment variable for dismissing the view
     @Environment(\.dismiss) private var dismiss
     
-    /// Access to workout tracking functionality
+    // MARK: - Properties
+    
+    // Instead of using StateObject, take exercises as a parameter
+    let exercises: [ExerciseCompletion]
+    
+    // Add a completion handler
+    var onComplete: ((Int?, String?, MoodType?) -> Void)?
+    
+    // If no onComplete is provided, we'll use the shared tracking manager
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
     
-    /// User's rating of the workout (1-5 stars)
     @State private var userRating: Int?
-    
-    /// User's notes about the workout
     @State private var notes = ""
-    
-    /// User's mood after the workout
     @State private var selectedMood: MoodType?
     
-    /// List of exercises with completion status
-    @State private var exercises: [ExerciseCompletion] = []
+    // MARK: - Initializers
     
-    /// Sample exercises - in a real app, you'd get these from your exercise library
-    /// This would be replaced with data from the ExerciseLibrary component
-    private let sampleExercises = ["Push-ups", "Squats", "Lunges", "Plank", "Jumping Jacks"]
+    // Add a custom initializer to handle both use cases
+    init(
+        exercises: [ExerciseCompletion] = [],
+        onComplete: ((Int?, String?, MoodType?) -> Void)? = nil
+    ) {
+        self.exercises = exercises
+        self.onComplete = onComplete
+    }
+    
+    // MARK: - Body
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Exercises Completed")) {
-                    ForEach(exercises.indices, id: \.self) { index in
+                    ForEach(exercises) { exercise in
                         HStack {
-                            Button(action: { exercises[index].completed.toggle() }) {
-                                Image(systemName: exercises[index].completed ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(exercises[index].completed ? .green : .gray)
-                            }
+                            Image(systemName: exercise.completed ? "checkmark.circle.fill" : "circle")
+                                .foregroundColor(exercise.completed ? .green : .gray)
                             
-                            Text(exercises[index].exerciseName)
+                            Text(exercise.exerciseName)
                             
                             Spacer()
                             
-                            // Difficulty rating
-                            HStack {
-                                ForEach(1...3, id: \.self) { rating in
-                                    Image(systemName: rating <= (exercises[index].difficultyRating ?? 0) ? "star.fill" : "star")
-                                        .foregroundColor(.yellow)
-                                        .onTapGesture {
-                                            exercises[index].difficultyRating = rating
-                                        }
+                            if let rating = exercise.difficultyRating {
+                                HStack {
+                                    ForEach(1...3, id: \.self) { star in
+                                        Image(systemName: star <= rating ? "star.fill" : "star")
+                                            .foregroundColor(.yellow)
+                                    }
                                 }
                             }
                         }
@@ -105,33 +106,29 @@ struct WorkoutCompletionView: View {
                 
                 Section {
                     Button("Save Workout") {
-                        trackingManager.completeWorkout(
-                            exercises: exercises,
-                            userRating: userRating,
-                            notes: notes.isEmpty ? nil : notes,
-                            mood: selectedMood
-                        )
+                        if let onComplete = onComplete {
+                            // Use the provided completion handler if available
+                            onComplete(userRating, notes.isEmpty ? nil : notes, selectedMood)
+                        } else {
+                            // Otherwise use the shared tracking manager
+                            trackingManager.completeWorkout(
+                                exercises: exercises,
+                                userRating: userRating,
+                                notes: notes.isEmpty ? nil : notes,
+                                mood: selectedMood
+                            )
+                        }
                         dismiss()
                     }
                 }
             }
             .navigationTitle("Complete Workout")
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                // Initialize exercises list
-                exercises = sampleExercises.map { exercise in
-                    ExerciseCompletion(
-                        sessionId: trackingManager.currentSession?.id ?? UUID(),
-                        exerciseName: exercise
-                    )
-                }
-            }
         }
     }
     
-    /// Returns an SF Symbol name for each mood type
-    /// - Parameter mood: The mood to get an icon for
-    /// - Returns: SF Symbol name representing the mood
+    // MARK: - Helper Methods
+    
     private func moodIcon(for mood: MoodType) -> String {
         switch mood {
         case .energized: return "bolt.fill"
@@ -143,10 +140,14 @@ struct WorkoutCompletionView: View {
     }
 }
 
-/// Preview provider for SwiftUI canvas
+// MARK: - Preview
 struct WorkoutCompletionView_Previews: PreviewProvider {
     static var previews: some View {
-        // Note: This preview may not work properly since it requires an active workout
-        WorkoutCompletionView()
+        WorkoutCompletionView(
+            exercises: [
+                ExerciseCompletion(sessionId: UUID(), exerciseName: "Push Ups", completed: true),
+                ExerciseCompletion(sessionId: UUID(), exerciseName: "Squats", completed: false)
+            ]
+        )
     }
 }
