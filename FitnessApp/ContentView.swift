@@ -14,8 +14,7 @@ struct ContentView: View {
     @State private var showAnimalPicker = false
     @State private var animateCard = false
 
-    // List of cartoon animal image names from your Assets
-    let animalImages = ["bear", "cat", "chicken", "duck", "meerkat", "owl", "panda", "unicorn1","unicorn2", "wolf"]
+    let animalImages = ["bear", "cat", "chicken", "duck", "meerkat", "owl", "panda", "unicorn1", "unicorn2", "wolf"]
 
     var body: some View {
         NavigationView {
@@ -37,24 +36,36 @@ struct ContentView: View {
                     .offset(y: animateCard ? 0 : 20)
                     .animation(.easeOut(duration: 0.6), value: animateCard)
 
-                    // Profile Picture
-                    Button {
-                        showAnimalPicker = true
-                    } label: {
-                        if !selectedAnimalImage.isEmpty {
-                            Image(selectedAnimalImage)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 100, height: 100)
-                                .clipShape(Circle())
-                        } else {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.gray.opacity(0.2))
+                    // Profile Picture + Reset Button
+                    VStack(spacing: 8) {
+                        Button {
+                            showAnimalPicker = true
+                        } label: {
+                            if !selectedAnimalImage.isEmpty {
+                                Image(selectedAnimalImage)
+                                    .resizable()
+                                    .scaledToFill()
                                     .frame(width: 100, height: 100)
-                                Image(systemName: "photo")
-                                    .foregroundColor(.black)
-                                    .font(.system(size: 30))
+                                    .clipShape(Circle())
+                            } else {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.gray.opacity(0.2))
+                                        .frame(width: 100, height: 100)
+                                    Image(systemName: "photo")
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 30))
+                                }
+                            }
+                        }
+
+                        if !selectedAnimalImage.isEmpty {
+                            Button(action: {
+                                selectedAnimalImage = ""
+                            }) {
+                                Text("Remove Picture")
+                                    .font(.caption)
+                                    .foregroundColor(.red)
                             }
                         }
                     }
@@ -108,7 +119,7 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Animal Picker Sheet
+// MARK: - Animal Picker Sheet (with highlight)
 struct AnimalPickerView: View {
     @Binding var selectedImage: String
     let animalImages: [String]
@@ -126,6 +137,10 @@ struct AnimalPickerView: View {
                             .scaledToFill()
                             .frame(width: 80, height: 80)
                             .clipShape(Circle())
+                            .overlay(
+                                Circle()
+                                    .stroke(selectedImage == animal ? Color.blue : Color.clear, lineWidth: 4)
+                            )
                             .onTapGesture {
                                 selectedImage = animal
                                 dismiss()
