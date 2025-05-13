@@ -15,6 +15,7 @@ struct UpcomingReminderView: View {
                 Divider()
                 Text(Reminder.text)
                 Text(Reminder.dueTime.formatted(date: .abbreviated, time: .shortened))
+                Spacer()
                 
             }
         }
