@@ -30,3 +30,4 @@ struct MountainClimberView: View {
         .padding()
     }
 }
+

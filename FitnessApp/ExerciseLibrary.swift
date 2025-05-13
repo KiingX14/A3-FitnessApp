@@ -44,6 +44,5 @@ struct ExerciseLibraryView: View {
                     Text("Jogging")
                 }
             }
-        
     }
 }
