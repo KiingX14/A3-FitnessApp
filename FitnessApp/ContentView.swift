@@ -19,7 +19,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.white.ignoresSafeArea()
+                Color(.systemGray6).ignoresSafeArea() // ✅ grey background
 
                 VStack(spacing: 30) {
                     // Welcome Text
@@ -47,13 +47,15 @@ struct ContentView: View {
                                     .scaledToFill()
                                     .frame(width: 100, height: 100)
                                     .clipShape(Circle())
+                                    .overlay(Circle().stroke(Color.blue, lineWidth: 2))
                             } else {
                                 ZStack {
                                     Circle()
-                                        .fill(Color.gray.opacity(0.2))
+                                        .fill(Color.white)
                                         .frame(width: 100, height: 100)
+                                        .shadow(radius: 2)
                                     Image(systemName: "photo")
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.blue)
                                         .font(.system(size: 30))
                                 }
                             }
@@ -76,8 +78,9 @@ struct ContentView: View {
                     // Username Field
                     TextField("Username", text: $username)
                         .padding()
-                        .background(Color(.systemGray6))
+                        .background(Color.white)
                         .cornerRadius(12)
+                        .shadow(color: Color.black.opacity(0.05), radius: 1, x: 0, y: 1)
                         .padding(.horizontal)
                         .foregroundColor(.black)
                         .autocapitalization(.none)
@@ -90,11 +93,13 @@ struct ContentView: View {
                             .font(.headline)
                             .foregroundColor(.white)
                             .padding()
-                            .frame(maxWidth: 300)
+                            .frame(maxWidth: .infinity)
                             .background(username.trimmingCharacters(in: .whitespaces).isEmpty ? Color.gray : Color.blue)
                             .cornerRadius(12)
+                            .shadow(color: Color.black.opacity(0.05), radius: 1, x: 0, y: 1)
                     }
                     .disabled(username.trimmingCharacters(in: .whitespaces).isEmpty)
+                    .padding(.horizontal)
                     .opacity(animateCard ? 1 : 0)
                     .animation(.easeOut.delay(0.2), value: animateCard)
 

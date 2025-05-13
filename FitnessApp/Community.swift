@@ -14,45 +14,66 @@ struct CommunityView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .leading, spacing: 16) {
                 // top bar
                 HStack {
                     Text("Community")
                         .font(.system(size: 32, weight: .bold))
                         .foregroundColor(.black)
+
                     Spacer()
-                    Button(action: {
-                        showNewPost = true
-                    }) {
-                        Image(systemName: "plus.bubble")
-                            .font(.title2)
-                            .foregroundColor(.blue)
+
+                    ZStack(alignment: .topTrailing) {
+                        Button(action: {
+                            showNewPost = true
+                        }) {
+                            Image(systemName: "plus.bubble")
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                        }
+
+                        // Notification dot
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 10, height: 10)
+                            .offset(x: 8, y: -6)
                     }
                 }
-                .padding(.horizontal)
                 .padding(.top, 20)
+                .padding(.horizontal)
 
                 // posts list
-                List(viewModel.posts) { post in
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack {
-                            Text(post.username)
-                                .font(.headline)
-                                .foregroundColor(.black)
-                            Spacer()
-                            Text(post.timestamp)
-                                .font(.caption)
-                                .foregroundColor(.gray)
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(viewModel.posts) { post in
+                            VStack(alignment: .leading, spacing: 8) {
+                                HStack {
+                                    Text(post.username)
+                                        .font(.headline)
+                                        .foregroundColor(.black)
+                                    Spacer()
+                                    Text(post.timestamp)
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
+
+                                Text(post.message)
+                                    .font(.body)
+                                    .foregroundColor(.black)
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white)
+                            .cornerRadius(12)
+                            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
                         }
-                        Text(post.message)
-                            .font(.body)
-                            .foregroundColor(.black)
                     }
-                    .padding(.vertical, 8)
+                    .padding(.horizontal)
                 }
-                .listStyle(PlainListStyle())
+
+                Spacer()
             }
-            .background(Color.white.ignoresSafeArea())
+            .background(Color(.systemGray6).ignoresSafeArea())
             .sheet(isPresented: $showNewPost) {
                 NewPostView(viewModel: viewModel, defaultUsername: username)
             }

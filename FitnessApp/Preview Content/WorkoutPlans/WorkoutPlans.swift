@@ -1,3 +1,10 @@
+//
+//  WorkoutPlans.swift
+//  FitnessApp
+//
+//  Created by Raissa Rahardjo on 13/5/2025.
+//
+
 import SwiftUI
 
 struct WorkoutPlanView: View {
@@ -9,57 +16,89 @@ struct WorkoutPlanView: View {
     let allExercises = [
         "Push Ups", "Mountain Climbers", "Squats", "Side Plank", "Squat", "Wall Sit", "Lunges", "Sit Ups", "Crunches", "Spider Crawl", "Plank"
     ]
-    
-    let timeBasedExercises: Set<String> = ["Plank", "Wall Sit", "Side Planks"]
+
+    let timeBasedExercises: Set<String> = ["Plank", "Wall Sit", "Side Plank"]
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(alignment: .leading, spacing: 20) {
+            // Title
             Text("Create Your Workout Plan")
-                .font(.title)
-                .fontWeight(.bold)
+                .font(.system(size: 28, weight: .bold))
+                .foregroundColor(.black)
+                .padding(.top)
 
+            // Difficulty Picker
             Menu {
-                Button("Beginner", action: { selectedLevel = "Beginner" })
-                Button("Intermediate", action: { selectedLevel = "Intermediate" })
-                Button("Advanced", action: { selectedLevel = "Advanced" })
+                Button("Beginner") { selectedLevel = "Beginner" }
+                Button("Intermediate") { selectedLevel = "Intermediate" }
+                Button("Advanced") { selectedLevel = "Advanced" }
             } label: {
-                Label("Difficulty: \(selectedLevel)", systemImage: "chevron.down")
-                    .padding()
-                    .background(Color.blue.opacity(0.2))
-                    .cornerRadius(8)
-            }
-
-            Text("Select Exercises")
-                .font(.headline)
-            NavigationLink(destination: ExerciseLibraryView()) {
-                Text("Exercise Library")
-            }
-
-            List(allExercises, id: \.self) { exercise in
                 HStack {
-                    Text(exercise)
+                    Text("Difficulty: \(selectedLevel)")
                     Spacer()
-                    Image(systemName: selectedExercises.contains(exercise) ? "checkmark.square.fill" : "square")
-                        .onTapGesture {
-                            toggleExercise(exercise)
-                        }
+                    Image(systemName: "chevron.down")
+                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(12)
+                .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
+            }
+
+            // Library link
+            HStack {
+                Text("Select Exercises")
+                    .font(.headline)
+                    .foregroundColor(.black)
+                Spacer()
+                NavigationLink(destination: ExerciseLibraryView()) {
+                    Text("Exercise Library")
+                        .font(.subheadline)
                         .foregroundColor(.blue)
                 }
             }
-            .frame(height: 400)
 
-            Button("Create Plan") {
+            // Exercise list
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(allExercises, id: \.self) { exercise in
+                        HStack {
+                            Text(exercise)
+                                .foregroundColor(.black)
+
+                            Spacer()
+
+                            Image(systemName: selectedExercises.contains(exercise) ? "checkmark.square.fill" : "square")
+                                .foregroundColor(.blue)
+                                .onTapGesture {
+                                    toggleExercise(exercise)
+                                }
+                        }
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(12)
+                        .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
+                    }
+                }
+            }
+            .frame(maxHeight: 350)
+
+            // Create Plan Button
+            Button(action: {
                 generateWorkoutPlan()
                 showSummary = true
+            }) {
+                Text("Create Plan")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .cornerRadius(12)
             }
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(Color.green)
-            .foregroundColor(.white)
-            .cornerRadius(8)
 
             Spacer()
 
+            // Navigate to summary
             NavigationLink(
                 destination: WorkoutSummaryView(plan: generatedPlan, level: selectedLevel),
                 isActive: $showSummary
@@ -68,6 +107,7 @@ struct WorkoutPlanView: View {
             }
         }
         .padding()
+        .background(Color(.systemGray6).ignoresSafeArea())
     }
 
     func toggleExercise(_ exercise: String) {

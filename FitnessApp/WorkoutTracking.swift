@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 
 // Main workout tracking view ,the primary entry point for the workout tracking feature
@@ -7,16 +5,16 @@ import SwiftUI
 struct WorkoutTrackingView: View {
     // Access to workout data and functionality
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
-    
+
     // Controls display of the new workout form
     @State private var showingWorkoutForm = false
-    
+
     // Currently selected workout for detail view
     @State private var selectedSession: WorkoutSession?
-    
+
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .leading, spacing: 16) {
                 // Current streak display
                 if trackingManager.calculateStreak() > 0 {
                     HStack {
@@ -28,30 +26,34 @@ struct WorkoutTrackingView: View {
                     }
                     .padding()
                     .background(Color.orange.opacity(0.1))
-                    .cornerRadius(8)
+                    .cornerRadius(12)
                     .padding(.horizontal)
                 }
-                
+
                 // Workout history
                 if trackingManager.workoutHistory.isEmpty {
+                    Spacer()
                     ContentUnavailableView(
                         "No Workout History",
                         systemImage: "figure.run",
                         description: Text("Start your fitness journey by tracking your first workout!")
                     )
+                    Spacer()
                 } else {
-                    List {
-                        ForEach(trackingManager.workoutHistory.sorted(by: { $0.date > $1.date })) { session in
-                            WorkoutHistoryRow(session: session)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    selectedSession = session
-                                }
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ForEach(trackingManager.workoutHistory.sorted(by: { $0.date > $1.date })) { session in
+                                WorkoutHistoryRow(session: session)
+                                    .onTapGesture {
+                                        selectedSession = session
+                                    }
+                            }
                         }
+                        .padding(.horizontal)
+                        .padding(.top, 4)
                     }
-                    .listStyle(.insetGrouped)
                 }
-                
+
                 // Active workout banner
                 if trackingManager.isWorkoutActive, let session = trackingManager.currentSession {
                     ActiveWorkoutBanner(session: session)
@@ -70,13 +72,8 @@ struct WorkoutTrackingView: View {
             .sheet(item: $selectedSession) { session in
                 WorkoutDetailView(session: session)
             }
+            .background(Color(.systemGray6).ignoresSafeArea())
         }
-    }
-}
-
-struct WorkoutTrackingView_Previews: PreviewProvider {
-    static var previews: some View {
-        WorkoutTrackingView()
     }
 }
 
@@ -84,32 +81,35 @@ struct WorkoutTrackingView_Previews: PreviewProvider {
 struct WorkoutHistoryRow: View {
     // The workout session to display
     let session: WorkoutSession
-    
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 6) {
             Text(session.workoutName)
                 .font(.headline)
-            
+                .foregroundColor(.black)
+
             HStack {
                 Label(session.date.formatted(date: .abbreviated, time: .shortened), systemImage: "calendar")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-                
+
                 Spacer()
-                
+
                 Label("\(session.durationInSeconds / 60) min", systemImage: "clock")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
-            
-            // Show completion percentage
+
             ProgressView(value: session.completionPercentage / 100)
                 .tint(completionColor(for: session.completionPercentage))
                 .padding(.top, 4)
         }
-        .padding(.vertical, 4)
+        .padding()
+        .background(Color.white)
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
     }
-    
+
     // Returns a color based on completion percentage
     private func completionColor(for percentage: Double) -> Color {
         switch percentage {

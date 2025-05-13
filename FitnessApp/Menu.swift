@@ -16,15 +16,19 @@ struct MenuView: View {
     @State private var showNameEditor = false
     @State private var avatarAnimated = false
 
+    // Notification counts
+    @State private var reminderCount = 3
+    @State private var communityCount = 5
+
     var body: some View {
         VStack(spacing: 30) {
-            // app title
+            // App title
             Text("QuickFit")
                 .font(.system(size: 36, weight: .bold))
                 .foregroundColor(.black)
                 .padding(.top, 20)
 
-            // top bar
+            // Top bar
             HStack(spacing: 12) {
                 if !username.isEmpty {
                     Text("👋 Hello, \(username)")
@@ -34,7 +38,6 @@ struct MenuView: View {
 
                 Spacer()
 
-                // profile menu
                 Menu {
                     Button("Change Picture") {
                         showImagePicker = true
@@ -74,27 +77,26 @@ struct MenuView: View {
             // menu options
             VStack(spacing: 16) {
                 NavigationLink(destination: WorkoutPlanView()) {
-                    menuButton(title: "Workout Plans")
+                    menuCard(title: "Workout Plans", icon: "dumbbell")
                 }
                 NavigationLink(destination: ExerciseLibraryView()) {
-                    menuButton(title: "Exercise Library")
+                    menuCard(title: "Exercise Library", icon: "book")
                 }
                 NavigationLink(destination: WorkoutTrackingView()) {
-                    menuButton(title: "Workout Tracking")
+                    menuCard(title: "Workout Tracking", icon: "clock.arrow.circlepath")
                 }
                 NavigationLink(destination: ReminderView()) {
-                    menuButton(title: "Reminders")
+                    menuCardWithBadge(title: "Reminders", icon: "bell", count: reminderCount)
                 }
                 NavigationLink(destination: CommunityView()) {
-                    menuButton(title: "Community")
+                    menuCardWithBadge(title: "Community", icon: "person.3.fill", count: communityCount)
                 }
             }
-            .frame(maxWidth: 300)
-            .padding(.top)
+            .padding(.horizontal)
 
             Spacer()
         }
-        .background(Color.white.ignoresSafeArea())
+        .background(Color(.systemGray6).ignoresSafeArea())
         .sheet(isPresented: $showImagePicker) {
             AnimalPickerView(selectedImage: $selectedAnimalImage, animalImages: [
                 "bear", "cat", "chicken", "duck", "meerkat", "owl", "panda", "unicorn1", "unicorn2", "wolf"
@@ -106,15 +108,56 @@ struct MenuView: View {
         })
     }
 
-    // Reusable button
+    // Reusable card-style menu button
     @ViewBuilder
-    private func menuButton(title: String) -> some View {
-        Text(title)
-            .font(.headline)
-            .foregroundColor(.white)
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(Color.blue) // you can change any colour you want by replace the Color.colouryouwant
-            .cornerRadius(12)
+    private func menuCard(title: String, icon: String) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundColor(.blue)
+
+            Text(title)
+                .font(.headline)
+                .foregroundColor(.black)
+
+            Spacer()
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(Color.white)
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+    }
+
+    // Menu card with a red circular badge count
+    @ViewBuilder
+    private func menuCardWithBadge(title: String, icon: String, count: Int) -> some View {
+        HStack(spacing: 12) {
+            ZStack(alignment: .topTrailing) {
+                Image(systemName: icon)
+                    .font(.title2)
+                    .foregroundColor(.blue)
+
+                if count > 0 {
+                    Text("\(count)")
+                        .font(.caption2)
+                        .foregroundColor(.white)
+                        .padding(5)
+                        .background(Circle().fill(Color.red))
+                        .offset(x: 10, y: -10)
+                }
+            }
+
+            Text(title)
+                .font(.headline)
+                .foregroundColor(.black)
+
+            Spacer()
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(Color.white)
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
     }
 }
