@@ -13,10 +13,10 @@ struct ReminderView: View {
                 NavigationLink(destination: NewReminderView()) {
                     Text("New Reminder")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: UpcomingReminderView()) {
                     Text("Upcoming Reminders")
                 }
-                NavigationLink(destination: MenuView()) {
+                NavigationLink(destination: PastReminderView()) {
                     Text("Past Reminders")
                 }
             }

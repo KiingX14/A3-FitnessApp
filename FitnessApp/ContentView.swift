@@ -17,7 +17,7 @@ struct ContentView: View {
         
         NavigationView {
             HStack {
-                    TextField("Username: ", text: $username)
+                    TextField("Name ", text: $username)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .onAppear{requestNote()}
