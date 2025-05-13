@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-// MARK: - Reusable UI Components
-
-/// Component for displaying a statistic with icon and value
+// Component for displaying a statistic with icon and value
 struct StatCard: View {
     /// The numeric value to display
     let value: String
@@ -42,15 +40,14 @@ struct StatCard: View {
     }
 }
 
-/// Banner showing the currently active workout and its duration
 struct ActiveWorkoutBanner: View {
-    /// The active workout session
+    // The active workout session
     let session: WorkoutSession
     
-    /// Access to workout tracking functionality
+    // Access to workout tracking functionality
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
     
-    /// Controls display of the completion sheet
+    // Controls display of the completion sheet
     @State private var showingCompletionSheet = false
     
     var body: some View {
@@ -86,9 +83,7 @@ struct ActiveWorkoutBanner: View {
         }
     }
     
-    /// Formats duration in seconds to MM:SS format
-    /// - Parameter seconds: Duration in seconds
-    /// - Returns: Formatted string (e.g. "05:30")
+
     private func formatDuration(_ seconds: Int) -> String {
         let minutes = seconds / 60
         let remainingSeconds = seconds % 60

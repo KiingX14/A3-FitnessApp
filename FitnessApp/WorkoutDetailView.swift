@@ -1,15 +1,10 @@
-//
-//  WorkoutDetailView.swift
-//  FitnessApp
-//
-//  Created by William on 12/5/2025.
-//
+
 
 import SwiftUI
 
-/// View for displaying the details of a completed workout
+// View for displaying the details of a completed workout
 struct WorkoutDetailView: View {
-    /// The workout session to display
+    // The workout session to display
     let session: WorkoutSession
     
     var body: some View {
@@ -87,9 +82,7 @@ struct WorkoutDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    /// Returns a color associated with a mood
-    /// - Parameter mood: The mood to get a color for
-    /// - Returns: Color representing the mood
+    // Returns a color associated with a mood
     private func moodColor(_ mood: MoodType) -> Color {
         switch mood {
         case .energized: return .green
@@ -101,7 +94,7 @@ struct WorkoutDetailView: View {
     }
 }
 
-/// Preview provider for SwiftUI canvas
+// Preview provider for SwiftUI canvas
 struct WorkoutDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {

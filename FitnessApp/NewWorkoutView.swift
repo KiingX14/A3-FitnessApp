@@ -1,26 +1,17 @@
-//
-//  NewWorkoutView.swift
-//  FitnessApp
-//
-//  Created by William Tan on 12/5/2025.
-//
+
 
 import SwiftUI
 
-/// View for starting a new workout
-/// Allows the user to enter a workout name or select from preset options
+// View for starting a new workout
 struct NewWorkoutView: View {
-    /// Environment variable for dismissing the view
     @Environment(\.dismiss) private var dismiss
     
-    /// Access to workout tracking functionality
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
     
-    /// Name of the workout being created
     @State private var workoutName = ""
     
-    /// Sample workout names for quick selection
-    private let sampleWorkouts = ["Quick HIIT", "Full Body", "Upper Body", "Lower Body", "Core Workout", "Cardio"]
+    // Sample workout names for quick selection
+    private let sampleWorkouts = ["Push Ups", "Mountain Climbers", "Squats", "Side Plank", "Squat", "Wall Sit", "Lunges", "Sit Ups", "Crunches", "Spider Crawl", "Plank"]
     
     var body: some View {
         NavigationView {
@@ -57,7 +48,6 @@ struct NewWorkoutView: View {
     }
 }
 
-/// Preview provider for SwiftUI canvas
 struct NewWorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         NewWorkoutView()
