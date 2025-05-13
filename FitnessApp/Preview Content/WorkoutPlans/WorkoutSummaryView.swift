@@ -23,12 +23,10 @@ struct WorkoutSummaryView: View {
                 Text("• \(item)")
             }
 
-            // Navigation to workout session
             NavigationLink(destination: StartWorkoutView(plan: plan), isActive: $navigateToWorkout) {
                 EmptyView()
             }
 
-            // Action buttons
             HStack(spacing: 20) {
                 Button("Start Workout") {
                     navigateToWorkout = true
@@ -54,6 +52,5 @@ struct WorkoutSummaryView: View {
 
     func saveWorkoutPlan() {
         print("Saved plan for \(level): \(plan)")
-        // Extend this with UserDefaults or storage later
     }
 }

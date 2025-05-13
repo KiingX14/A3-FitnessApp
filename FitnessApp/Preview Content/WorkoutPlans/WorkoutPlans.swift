@@ -31,6 +31,9 @@ struct WorkoutPlanView: View {
 
             Text("Select Exercises")
                 .font(.headline)
+            NavigationLink(destination: ExerciseLibraryView()) {
+                Text("Exercise Library")
+            }
 
             List(allExercises, id: \.self) { exercise in
                 HStack {
@@ -43,7 +46,7 @@ struct WorkoutPlanView: View {
                         .foregroundColor(.blue)
                 }
             }
-            .frame(height: 250)
+            .frame(height: 400)
 
             Button("Create Plan") {
                 generateWorkoutPlan()
