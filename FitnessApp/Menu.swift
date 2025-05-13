@@ -10,6 +10,7 @@ import SwiftUI
 struct MenuView: View {
     @AppStorage("username") private var username: String = ""
     @AppStorage("selectedAnimalImage") private var selectedAnimalImage: String = ""
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack(spacing: 30) {
@@ -31,21 +32,25 @@ struct MenuView: View {
 
                 Spacer()
 
-                Button(action: {
-                    // navigate to settings or handle logout
-                    print("Settings tapped")
-                }) {
+                // navigate to settings or handle logout
+                Menu {
+                    Button("Logout", role: .destructive) {
+                        username = ""
+                        selectedAnimalImage = ""
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                } label: {
                     Image(systemName: "gearshape")
                         .font(.title2)
                         .foregroundColor(.black)
+                    }
                 }
-            }
-            .padding(.horizontal)
-            .padding(.top, 20)
+                .padding(.horizontal)
+                .padding(.top, 20)
 
-            Text("Menu")
-                .font(.system(size: 36, weight: .bold))
-                .foregroundColor(.black)
+                Text("Menu")
+                    .font(.system(size: 36, weight: .bold))
+                    .foregroundColor(.black)
 
             // menu options
             VStack(spacing: 16) {
