@@ -19,7 +19,7 @@ struct PushUpView: View {
                 .scaledToFit()
                 .frame(height: 250)
 
-            Text("Get your heart rate up and get your blood flowing")
+            Text("Start in a plank position. Lower your body until your chest nearly touches the floor, then push back up. This exercise targets your chest, shoulders and triceps.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

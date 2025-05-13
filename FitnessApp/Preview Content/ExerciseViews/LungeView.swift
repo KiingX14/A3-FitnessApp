@@ -19,7 +19,7 @@ struct LungeView: View {
                 .scaledToFit()
                 .frame(height: 250)
 
-            Text("Get your heart rate up and get your blood flowing")
+            Text("Step forward with one leg, lowering your hips until both knees are bent at about 90 degrees, then return to standing. Repeat on the other side. This exercise focuses on your quads, glutes, and hamstrings.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

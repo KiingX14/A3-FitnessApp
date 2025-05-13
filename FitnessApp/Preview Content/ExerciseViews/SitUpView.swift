@@ -19,7 +19,7 @@ struct SitUpView: View {
                 .scaledToFit()
                 .frame(height: 250)
 
-            Text("Get your heart rate up and get your blood flowing")
+            Text("Lie on your back with knees bent, then lift your torso up toward your thighs and lower back down. This exercise works on your abs, hip flexors, and obliques.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

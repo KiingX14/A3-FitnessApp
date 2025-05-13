@@ -24,6 +24,8 @@ struct ContentView: View {
                     NavigationLink(destination: MenuView()) {
                         Text("Enter")
                     }
+                    .disabled(username.trimmingCharacters(in: .whitespaces).isEmpty)
+                    .opacity(username.trimmingCharacters(in: .whitespaces).isEmpty ? 0.5 : 1.0)
                     
                 }
             .padding()
