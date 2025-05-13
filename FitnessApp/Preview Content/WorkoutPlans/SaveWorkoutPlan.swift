@@ -1,32 +1,29 @@
 //
-//  NewReminder.swift
+//  SaveWorkoutPlan.swift
 //  FitnessApp
 //
-//  Created by Nathan Nourse on 12/5/2025.
+//  Created by Nathan Nourse on 13/5/2025.
 //
 
 import SwiftUI
 
-
-
-struct NewReminderView: View {
+struct SaveWorkoutView: View {
     @State var rName: String = ""
-    @State var rText: String = ""
+    @State var rText: String = "Go to view workout plans to learn more."
     @State var rDueTime: Date = Date()
+    @State var navigate: Bool = false
     var body: some View {
         
         VStack {
-            TextField("Reminder Name: ", text: $rName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-            TextField("Reminder Text: ", text: $rText)
+            TextField("Workout Name: ", text: $rName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             HStack {
                 DatePicker("", selection: $rDueTime, displayedComponents: [.date, .hourAndMinute])
-                    .datePickerStyle(.wheel) // or .compact, .graphical
+                    .datePickerStyle(.wheel)
                     .padding()
             }
+            NavigationLink(destination: MenuView(), isActive: $navigate) {}
             Button("Create") {
                 let reminder = Reminder(name: rName, text: rText, dueTime: rDueTime)
                 reminders.append(reminder)
@@ -42,7 +39,7 @@ struct NewReminderView: View {
     
 }
 
-func setNote(name: String, text: String, time: Date) {
+func setPlanNote(name: String, text: String, time: Date) {
     let n = UNMutableNotificationContent()
     n.title = name
     n.body = text
