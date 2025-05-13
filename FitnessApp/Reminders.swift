@@ -9,17 +9,42 @@ import SwiftUI
 
 struct ReminderView: View {
     var body: some View {
-            VStack {
+        VStack(spacing: 30) {
+            // title
+            Text("Reminders")
+                .font(.system(size: 36, weight: .bold))
+                .foregroundColor(.black)
+                .padding(.top, 20)
+
+            // reminder optioons
+            VStack(spacing: 16) {
                 NavigationLink(destination: NewReminderView()) {
-                    Text("New Reminder")
+                    reminderButton(title: "New Reminder")
                 }
                 NavigationLink(destination: UpcomingReminderView()) {
-                    Text("Upcoming Reminders")
+                    reminderButton(title: "Upcoming Reminders")
                 }
                 NavigationLink(destination: PastReminderView()) {
-                    Text("Past Reminders")
+                    reminderButton(title: "Past Reminders")
                 }
             }
-        
+            .frame(maxWidth: 300)
+
+            Spacer()
+        }
+        .padding()
+        .background(Color.white.ignoresSafeArea())
+    }
+
+    // Reusable button
+    @ViewBuilder
+    private func reminderButton(title: String) -> some View {
+        Text(title)
+            .font(.headline)
+            .foregroundColor(.white)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(Color.blue) // you can choose any colour that you want just replace the colour name.
+            .cornerRadius(12)
     }
 }
