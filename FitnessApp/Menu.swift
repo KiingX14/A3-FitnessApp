@@ -20,13 +20,12 @@ struct MenuView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            // Title
             Text("QuickFit")
                 .font(.system(size: 36, weight: .bold))
                 .foregroundColor(.black)
                 .padding(.top, 20)
-
-            // Greeting + Avatar Section
+            
+            // avatar selection
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     if !username.isEmpty {
@@ -41,7 +40,7 @@ struct MenuView: View {
 
                 Spacer()
 
-                // Avatar with menu
+                // avatar with menu
                 Menu {
                     Button("Change Picture") {
                         isShowingAvatarSelector = true
@@ -85,7 +84,7 @@ struct MenuView: View {
                 isAvatarVisible = true
             }
 
-            // Menu buttons
+            // menu buttons
             VStack(spacing: 16) {
                 NavigationLink(destination: WorkoutPlanView()) {
                     navigationButtonStyle(title: "Workout Plans", icon: "dumbbell")
@@ -119,7 +118,6 @@ struct MenuView: View {
         })
     }
 
-    // Standard navigation card
     @ViewBuilder
     private func navigationButtonStyle(title: String, icon: String) -> some View {
         HStack(spacing: 12) {
@@ -140,7 +138,6 @@ struct MenuView: View {
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
     }
 
-    // Badge version for notifications
     private func navigationButtonStyleWithBadge(title: String, icon: String, count: Int) -> some View {
         HStack(spacing: 12) {
             ZStack(alignment: .topTrailing) {
