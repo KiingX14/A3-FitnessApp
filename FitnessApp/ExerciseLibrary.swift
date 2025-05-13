@@ -1,5 +1,5 @@
 //
-//  Untitled.swift
+//  ExerciseLibrary.swift
 //  FitnessApp
 //
 //  Created by Nathan Nourse on 9/5/2025.
@@ -39,9 +39,6 @@ struct ExerciseLibraryView: View {
                 }
                 NavigationLink(destination: SpiderCrawlView()) {
                     Text("Spider Crawl")
-                }
-                NavigationLink(destination: JoggingView()) {
-                    Text("Jogging")
                 }
             }
     }
