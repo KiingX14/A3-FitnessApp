@@ -9,25 +9,53 @@ import SwiftUI
 
 struct CommunityView: View {
     @StateObject private var viewModel = CommunityViewModel()
+    @State private var showNewPost = false
+    @AppStorage("username") private var username: String = ""
 
     var body: some View {
         NavigationView {
-            List(viewModel.posts) { post in
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack {
-                        Text(post.username).font(.headline).foregroundColor(.white)
-                            .font(.headline)
-                        Spacer()
-                        Text(post.timestamp).font(.headline).foregroundColor(.white)
-                            .font(.caption)
-                            .foregroundColor(.gray)
+            VStack {
+                // top bar
+                HStack {
+                    Text("Community")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(.black)
+                    Spacer()
+                    Button(action: {
+                        showNewPost = true
+                    }) {
+                        Image(systemName: "plus.bubble")
+                            .font(.title2)
+                            .foregroundColor(.blue)
                     }
-                    Text(post.message)
-                        .font(.body)
                 }
-                .padding(.vertical, 8)
+                .padding(.horizontal)
+                .padding(.top, 20)
+
+                // posts list
+                List(viewModel.posts) { post in
+                    VStack(alignment: .leading, spacing: 6) {
+                        HStack {
+                            Text(post.username)
+                                .font(.headline)
+                                .foregroundColor(.black)
+                            Spacer()
+                            Text(post.timestamp)
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                        }
+                        Text(post.message)
+                            .font(.body)
+                            .foregroundColor(.black)
+                    }
+                    .padding(.vertical, 8)
+                }
+                .listStyle(PlainListStyle())
             }
-            .navigationTitle("Community")
+            .background(Color.white.ignoresSafeArea())
+            .sheet(isPresented: $showNewPost) {
+                NewPostView(viewModel: viewModel, defaultUsername: username)
+            }
         }
     }
 }
