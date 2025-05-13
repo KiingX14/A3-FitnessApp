@@ -13,6 +13,7 @@ struct NewReminderView: View {
     @State var rName: String = ""
     @State var rText: String = ""
     @State var rDueTime: Date = Date()
+    @State var navigate: Bool = false
     var body: some View {
         
         VStack {
@@ -27,10 +28,12 @@ struct NewReminderView: View {
                     .datePickerStyle(.wheel) // or .compact, .graphical
                     .padding()
             }
+            NavigationLink(destination: ReminderView(), isActive: $navigate) {}
             Button("Create") {
                 let reminder = Reminder(name: rName, text: rText, dueTime: rDueTime)
                 reminders.append(reminder)
                 setNote(name: rName, text: rText, time: rDueTime)
+                navigate = true
                 
             }
             .padding()

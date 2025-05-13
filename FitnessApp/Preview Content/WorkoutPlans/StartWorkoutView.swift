@@ -93,18 +93,23 @@ struct StartWorkoutView: View {
             // Initialize the workout
             setupWorkout()
         }
-        
-    private var completedExercises: Int {
+       
+}
+    
+    // MARK: - Helper Properties
+    
+    var completedExercises: Int {
         workoutExercises.filter { $0.isCompleted }.count
     }
     
-    private var progressValue: Double {
+    var progressValue: Double {
         guard workoutExercises.count > 0 else { return 0 }
         return Double(completedExercises) / Double(workoutExercises.count)
     }
     
+    // MARK: - Methods
     
-    private func setupWorkout() {
+    func setupWorkout() {
         // Convert plan to workout exercises
         workoutExercises = convertPlanToWorkoutExercises(plan)
         
@@ -117,13 +122,13 @@ struct StartWorkoutView: View {
         }
     }
     
-    private func endWorkout() {
+    func endWorkout() {
         timer?.invalidate()
         timer = nil
         showCompletionSheet = true
     }
     
-    private func cancelWorkout() {
+    func cancelWorkout() {
         timer?.invalidate()
         timer = nil
         
@@ -134,7 +139,7 @@ struct StartWorkoutView: View {
         presentationMode.wrappedValue.dismiss()
     }
     
-    private func saveWorkout(rating: Int?, notes: String?, mood: MoodType?) {
+    func saveWorkout(rating: Int?, notes: String?, mood: MoodType?) {
         // Complete the workout in tracking manager
         trackingManager.completeWorkout(
             exercises: convertToExerciseCompletions(),
@@ -147,27 +152,27 @@ struct StartWorkoutView: View {
         presentationMode.wrappedValue.dismiss()
     }
     
-    private func formatTime(_ seconds: Int) -> String {
+    func formatTime(_ seconds: Int) -> String {
         let minutes = seconds / 60
         let remainingSeconds = seconds % 60
         return String(format: "%02d:%02d", minutes, remainingSeconds)
     }
     
-    private func convertPlanToWorkoutExercises(_ plan: [String]) -> [WorkoutExercise] {
+    func convertPlanToWorkoutExercises(_ plan: [String]) -> [WorkoutExercise] {
         return plan.map { exerciseString in
             // Parse the exercise string
             // Assume format like "Push Ups: 10 reps" or just "Push Ups"
             let components = exerciseString.split(separator: ":")
             let name = String(components[0]).trimmingCharacters(in: .whitespaces)
             
-            let requirement = components.count > 1 ? 
+            let requirement = components.count > 1 ?
                 String(components[1]).trimmingCharacters(in: .whitespaces) : ""
             
             return WorkoutExercise(name: name, requirement: requirement)
         }
     }
     
-    private func convertToExerciseCompletions() -> [ExerciseCompletion] {
+    func convertToExerciseCompletions() -> [ExerciseCompletion] {
         return workoutExercises.map { exercise in
             ExerciseCompletion(
                 sessionId: trackingManager.currentSession?.id ?? UUID(),
@@ -185,4 +190,4 @@ struct WorkoutExercise: Identifiable {
     let requirement: String
     var isCompleted = false
     }
-}
+

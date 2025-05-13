@@ -28,6 +28,7 @@ struct SaveWorkoutView: View {
                 let reminder = Reminder(name: rName, text: rText, dueTime: rDueTime)
                 reminders.append(reminder)
                 setNote(name: rName, text: rText, time: rDueTime)
+                navigate = true
                 
             }
             .padding()

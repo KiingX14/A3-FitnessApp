@@ -36,8 +36,8 @@ struct WorkoutSummaryView: View {
                 .foregroundColor(.white)
                 .cornerRadius(8)
 
-                Button("Save Plan") {
-                    saveWorkoutPlan()
+                NavigationLink(destination: SaveWorkoutView()) {
+                    Text("Save Plan")
                 }
                 .padding()
                 .background(Color.gray)

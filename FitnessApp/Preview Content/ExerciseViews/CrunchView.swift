@@ -14,7 +14,7 @@ struct CrunchView: View {
                 .font(.title)
                 .fontWeight(.bold)
 
-            Image("crunch")
+            Image("crunches")
                 .resizable()
                 .scaledToFit()
                 .frame(height: 250)
