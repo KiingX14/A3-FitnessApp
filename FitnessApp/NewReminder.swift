@@ -30,6 +30,8 @@ struct NewReminderView: View {
             Button("Create") {
                 let reminder = Reminder(name: rName, text: rText, dueTime: rDueTime)
                 reminders.append(reminder)
+                setNote(name: rName, text: rText, time: rDueTime)
+                
             }
             .padding()
         }
@@ -37,5 +39,18 @@ struct NewReminderView: View {
         
     }
     
+    
+}
+
+func setNote(name: String, text: String, time: Date) {
+    let n = UNMutableNotificationContent()
+    n.title = name
+    n.body = text
+    n.sound = UNNotificationSound.default
+    let c = Calendar.current.dateComponents([.month, .day, .hour, .minute], from: time)
+    let trigger = UNCalendarNotificationTrigger(dateMatching: c, repeats: false)
+    let request = UNNotificationRequest(identifier: UUID().uuidString, content: n, trigger: trigger)
+    UNUserNotificationCenter.current().add(request) {error in}
+    UNUserNotificationCenter.current().getPendingNotificationRequests { requests in }
     
 }

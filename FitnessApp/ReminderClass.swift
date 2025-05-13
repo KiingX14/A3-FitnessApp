@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-class Reminder {
+class Reminder: Identifiable {
+    let id = UUID()
     var name: String
     var text: String
     var dueTime: Date
@@ -23,3 +24,4 @@ class Reminder {
 }
 
 var reminders: [Reminder] = []
+var pastReminders: [Reminder] = []
