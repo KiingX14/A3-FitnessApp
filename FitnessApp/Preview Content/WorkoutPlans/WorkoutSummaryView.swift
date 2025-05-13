@@ -32,7 +32,7 @@ struct WorkoutSummaryView: View {
                     navigateToWorkout = true
                 }
                 .padding()
-                .background(Color.orange)
+                .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(8)
 
