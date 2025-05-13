@@ -15,7 +15,6 @@ struct CommunityView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 16) {
-                // top bar
                 HStack {
                     Text("Community")
                         .font(.system(size: 32, weight: .bold))
@@ -32,7 +31,6 @@ struct CommunityView: View {
                                 .foregroundColor(.blue)
                         }
 
-                        // noti dot
                         Circle()
                             .fill(Color.red)
                             .frame(width: 10, height: 10)
@@ -42,7 +40,6 @@ struct CommunityView: View {
                 .padding(.top, 20)
                 .padding(.horizontal)
 
-                // posts list
                 ScrollView {
                     VStack(spacing: 12) {
                         ForEach(viewModel.posts) { post in
