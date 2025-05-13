@@ -1,22 +1,17 @@
-//
-//  WorkoutTracking.swift
-//  FitnessApp
-//
-//  Created by William Tan on 12/5/2025.
-//
+
 
 import SwiftUI
 
-/// Main workout tracking view - the primary entry point for the workout tracking feature
-/// This view displays the workout history, current streak, and active workout banner
+// Main workout tracking view ,the primary entry point for the workout tracking feature
+
 struct WorkoutTrackingView: View {
-    /// Access to workout data and functionality
+    // Access to workout data and functionality
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
     
-    /// Controls display of the new workout form
+    // Controls display of the new workout form
     @State private var showingWorkoutForm = false
     
-    /// Currently selected workout for detail view
+    // Currently selected workout for detail view
     @State private var selectedSession: WorkoutSession?
     
     var body: some View {
@@ -79,16 +74,15 @@ struct WorkoutTrackingView: View {
     }
 }
 
-/// Preview provider for SwiftUI canvas
 struct WorkoutTrackingView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutTrackingView()
     }
 }
 
-/// Component for displaying a workout session in the history list
+// Component for displaying a workout session in the history list
 struct WorkoutHistoryRow: View {
-    /// The workout session to display
+    // The workout session to display
     let session: WorkoutSession
     
     var body: some View {
@@ -116,9 +110,7 @@ struct WorkoutHistoryRow: View {
         .padding(.vertical, 4)
     }
     
-    /// Returns a color based on completion percentage
-    /// - Parameter percentage: Completion percentage (0-100)
-    /// - Returns: Color representing the completion level
+    // Returns a color based on completion percentage
     private func completionColor(for percentage: Double) -> Color {
         switch percentage {
         case 0..<50: return .red

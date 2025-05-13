@@ -1,17 +1,9 @@
-//
-//  WorkoutCompletionView.swift
-//  FitnessApp
-//
-//  Created by William Tan on 12/5/2025.
-//
+
 
 import SwiftUI
 
 struct WorkoutCompletionView: View {
     @Environment(\.dismiss) private var dismiss
-    
-    // MARK: - Properties
-    
     // Instead of using StateObject, take exercises as a parameter
     let exercises: [ExerciseCompletion]
     
@@ -25,7 +17,6 @@ struct WorkoutCompletionView: View {
     @State private var notes = ""
     @State private var selectedMood: MoodType?
     
-    // MARK: - Initializers
     
     // Add a custom initializer to handle both use cases
     init(
@@ -36,7 +27,6 @@ struct WorkoutCompletionView: View {
         self.onComplete = onComplete
     }
     
-    // MARK: - Body
     
     var body: some View {
         NavigationView {
@@ -126,9 +116,7 @@ struct WorkoutCompletionView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
-    
-    // MARK: - Helper Methods
-    
+        
     private func moodIcon(for mood: MoodType) -> String {
         switch mood {
         case .energized: return "bolt.fill"
@@ -140,7 +128,6 @@ struct WorkoutCompletionView: View {
     }
 }
 
-// MARK: - Preview
 struct WorkoutCompletionView_Previews: PreviewProvider {
     static var previews: some View {
         WorkoutCompletionView(

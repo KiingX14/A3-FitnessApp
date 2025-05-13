@@ -1,46 +1,28 @@
-//
-//  WorkoutTrackingManager.swift
-//  FitnessApp
-//
-//  Created by William Tan on 12/5/2025.
-//
 
 import Foundation
 import SwiftUI
 
-/// Manages all workout tracking functionality including data persistence,
-/// current workout state, and workout statistics
-/// 
-/// This is the central manager class for the workout tracking feature and
-/// provides access to workout history, current workout status, and streak
-/// calculation.
+// Manages all workout tracking functionality including data persistence, current workout state, and workout statistics 
 class WorkoutTrackingManager: ObservableObject {
-    /// Shared singleton instance for app-wide access
+    // Shared singleton instance for app-wide access
     static let shared = WorkoutTrackingManager()
     
-    /// Complete history of all workout sessions
+    // Complete history of all workout sessions
     @Published var workoutHistory: [WorkoutSession] = []
     
-    /// Currently active workout session (if any)
+    // Currently active workout session (if any)
     @Published var currentSession: WorkoutSession?
     
-    /// Flag indicating if a workout is currently in progress
     @Published var isWorkoutActive: Bool = false
     
-    /// Timer for tracking workout duration
     private var timer: Timer?
     
-    /// Start time of the current workout
     private var startTime: Date?
     
-    /// Initializes the manager and loads saved workout history
     init() {
         loadWorkoutHistory()
     }
-    
-    /// Starts a new workout session
-    /// - Parameter workoutName: Name of the workout
-    /// - Returns: The created workout session
+
     func startWorkout(workoutName: String) -> WorkoutSession {
         let session = WorkoutSession(workoutName: workoutName)
         currentSession = session
@@ -55,7 +37,7 @@ class WorkoutTrackingManager: ObservableObject {
         return session
     }
     
-    /// Updates the duration of the current workout (called by timer)
+    // Updates the duration of the current workout (called by timer)
     private func updateDuration() {
         guard let startTime = startTime, var session = currentSession else { return }
         let elapsed = Int(Date().timeIntervalSince(startTime))
@@ -63,12 +45,7 @@ class WorkoutTrackingManager: ObservableObject {
         currentSession = session
     }
     
-    /// Completes the current workout session
-    /// - Parameters:
-    ///   - exercises: List of exercises with completion status
-    ///   - userRating: Optional user rating (1-5)
-    ///   - notes: Optional user notes
-    ///   - mood: Optional user mood
+
     func completeWorkout(exercises: [ExerciseCompletion], userRating: Int? = nil, notes: String? = nil, mood: MoodType? = nil) {
         guard var session = currentSession else { return }
         
@@ -96,8 +73,7 @@ class WorkoutTrackingManager: ObservableObject {
         startTime = nil
     }
     
-    /// Calculates the current workout streak (consecutive days with workouts)
-    /// - Returns: Number of consecutive days with workouts
+    // Calculates the current workout streak (consecutive days with workouts)
     func calculateStreak() -> Int {
         let calendar = Calendar.current
         
@@ -134,14 +110,14 @@ class WorkoutTrackingManager: ObservableObject {
         return streak
     }
     
-    /// Saves workout history to persistent storage
+    // Saves workout history to persistent storage
     private func saveWorkoutHistory() {
         if let encoded = try? JSONEncoder().encode(workoutHistory) {
             UserDefaults.standard.set(encoded, forKey: "workoutHistory")
         }
     }
     
-    /// Loads workout history from persistent storage
+    // Loads workout history from persistent storage
     private func loadWorkoutHistory() {
         if let data = UserDefaults.standard.data(forKey: "workoutHistory"),
            let history = try? JSONDecoder().decode([WorkoutSession].self, from: data) {
@@ -149,9 +125,8 @@ class WorkoutTrackingManager: ObservableObject {
         }
     }
     
-    /// Generates sample workout data for testing and demonstration
+    // Generates sample workout data for testing and demonstration
     func generateSampleData() {
-        // Clear existing data
         workoutHistory = []
         
         // Add some sample workouts for demonstration purposes
@@ -184,7 +159,6 @@ class WorkoutTrackingManager: ObservableObject {
         saveWorkoutHistory()
     }
 
-    /// Cancels the current workout without saving it
     func cancelWorkout() {
     // Stop timer
         timer?.invalidate()

@@ -93,26 +93,7 @@ struct StartWorkoutView: View {
             // Initialize the workout
             setupWorkout()
         }
-       .sheet(isPresented: $showCompletionSheet) {
-        WorkoutCompletionView(
-        exercises: convertToExerciseCompletions(),
-        onComplete: { rating, notes, mood in
-            // Complete the workout in tracking manager
-            trackingManager.completeWorkout(
-                exercises: convertToExerciseCompletions(),
-                userRating: rating,
-                notes: notes,
-                mood: mood
-            )
-            
-            // Go back to previous screen
-            presentationMode.wrappedValue.dismiss()
-        }
-    )
-}
-    
-    // MARK: - Helper Properties
-    
+        
     private var completedExercises: Int {
         workoutExercises.filter { $0.isCompleted }.count
     }
@@ -122,7 +103,6 @@ struct StartWorkoutView: View {
         return Double(completedExercises) / Double(workoutExercises.count)
     }
     
-    // MARK: - Methods
     
     private func setupWorkout() {
         // Convert plan to workout exercises
