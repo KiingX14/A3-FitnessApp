@@ -1,10 +1,3 @@
-//
-//  WorkoutCompletionView.swift
-//  FitnessApp
-//
-//  Created by William Tan on 12/5/2025.
-//
-
 import SwiftUI
 
 struct WorkoutCompletionView: View {
