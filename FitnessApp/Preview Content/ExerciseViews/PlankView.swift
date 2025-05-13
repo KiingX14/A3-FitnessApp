@@ -19,7 +19,7 @@ struct PlankView: View {
                 .scaledToFit()
                 .frame(height: 250)
 
-            Text("Get your heart rate up and get your blood flowing")
+            Text("Hold a straight arm position with your body in a straight line from head to heels, similar to the starting position of a push up. Hold that pose. This exercise targets your core muscles, including your abs, obliques, and lower back.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

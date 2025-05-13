@@ -19,7 +19,7 @@ struct WallSitView: View {
                 .scaledToFit()
                 .frame(height: 250)
 
-            Text("Get your heart rate up and get your blood flowing")
+            Text("Slide your back down a wall until thighs are parallel to the floor and hold the position. This works the muscles of your lower body such as your quads, hamstrings, glutes, and calves.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

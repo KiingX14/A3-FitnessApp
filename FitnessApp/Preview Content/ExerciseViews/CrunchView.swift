@@ -19,7 +19,7 @@ struct CrunchView: View {
                 .scaledToFit()
                 .frame(height: 250)
 
-            Text("Get your heart rate up and get your blood flowing")
+            Text("Lift your head and shoulders off the ground to perform this move! Keep your back flat and your core engaged. Develop strong abdominal and back muscles.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

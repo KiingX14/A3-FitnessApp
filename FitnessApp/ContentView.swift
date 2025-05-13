@@ -89,12 +89,12 @@ struct ContentView: View {
                         Text("Enter")
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(username.isEmpty ? Color.gray : Color.blue)
+                            .background(username.trimmingCharacters(in: .whitespaces).isEmpty ? Color.gray : Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(12)
                             .padding(.horizontal)
                     }
-                    .disabled(username.isEmpty)
+                    .disabled(username.trimmingCharacters(in: .whitespaces).isEmpty)
                     .opacity(animateCard ? 1 : 0)
                     .animation(.easeOut.delay(0.2), value: animateCard)
 

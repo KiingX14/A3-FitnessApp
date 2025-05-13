@@ -19,7 +19,7 @@ struct SpiderCrawlView: View {
                 .scaledToFit()
                 .frame(height: 250)
 
-            Text("Get your heart rate up and get your blood flowing")
+            Text("From a high plank, bring one knee toward the outside of the same-side elbow, alternating sides as you crawl forward. This exercise aims to strengthen your core, legs, and arms.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

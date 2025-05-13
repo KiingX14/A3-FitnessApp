@@ -19,7 +19,7 @@ struct SquatView: View {
                 .scaledToFit()
                 .frame(height: 250)
 
-            Text("Get your heart rate up and get your blood flowing")
+            Text("Stand with feet shoulder-width apart, lower your hips back and down as if sitting into a chair, then return to standing. This exercise works your quads, glutes, hamstrings, and calves.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)

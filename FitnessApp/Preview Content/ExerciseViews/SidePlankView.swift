@@ -19,7 +19,7 @@ struct SidePlankView: View {
                 .scaledToFit()
                 .frame(height: 250)
 
-            Text("Get your heart rate up and get your blood flowing")
+            Text("Lie on one side and lift your hips off the ground, supporting your body on one forearm and the side of one foot. Keep your back flat and your core engaged. Hold, then switch sides. This exercise focuses on your side abs, core as well as your glutes.")
                 .font(.subheadline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
