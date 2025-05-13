@@ -1,24 +1,24 @@
-
+//
+//  WorkoutCompletionView.swift
+//  FitnessApp
+//
+//  Created by William Tan on 12/5/2025.
+//
 
 import SwiftUI
 
 struct WorkoutCompletionView: View {
     @Environment(\.dismiss) private var dismiss
-    // Instead of using StateObject, take exercises as a parameter
     let exercises: [ExerciseCompletion]
-    
-    // Add a completion handler
     var onComplete: ((Int?, String?, MoodType?) -> Void)?
     
-    // If no onComplete is provided, we'll use the shared tracking manager
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
-    
     @State private var userRating: Int?
     @State private var notes = ""
     @State private var selectedMood: MoodType?
     
     
-    // Add a custom initializer to handle both use cases
+    // custom initializer to handle both use cases
     init(
         exercises: [ExerciseCompletion] = [],
         onComplete: ((Int?, String?, MoodType?) -> Void)? = nil
@@ -97,10 +97,8 @@ struct WorkoutCompletionView: View {
                 Section {
                     Button("Save Workout") {
                         if let onComplete = onComplete {
-                            // Use the provided completion handler if available
                             onComplete(userRating, notes.isEmpty ? nil : notes, selectedMood)
                         } else {
-                            // Otherwise use the shared tracking manager
                             trackingManager.completeWorkout(
                                 exercises: exercises,
                                 userRating: userRating,
@@ -125,16 +123,5 @@ struct WorkoutCompletionView: View {
         case .tired: return "powersleep"
         case .exhausted: return "bolt.horizontal.fill"
         }
-    }
-}
-
-struct WorkoutCompletionView_Previews: PreviewProvider {
-    static var previews: some View {
-        WorkoutCompletionView(
-            exercises: [
-                ExerciseCompletion(sessionId: UUID(), exerciseName: "Push Ups", completed: true),
-                ExerciseCompletion(sessionId: UUID(), exerciseName: "Squats", completed: false)
-            ]
-        )
     }
 }

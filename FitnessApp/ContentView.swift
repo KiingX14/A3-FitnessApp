@@ -19,10 +19,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(.systemGray6).ignoresSafeArea() // ✅ grey background
+                Color(.systemGray6).ignoresSafeArea()
 
                 VStack(spacing: 30) {
-                    // Welcome Text
                     VStack(spacing: 5) {
                         Text("Welcome to QuickFit")
                             .font(.largeTitle)

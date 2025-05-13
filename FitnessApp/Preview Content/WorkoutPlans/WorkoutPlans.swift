@@ -21,13 +21,11 @@ struct WorkoutPlanView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            // Title
             Text("Create Your Workout Plan")
                 .font(.system(size: 28, weight: .bold))
                 .foregroundColor(.black)
                 .padding(.top)
-
-            // Difficulty Picker
+            
             Menu {
                 Button("Beginner") { selectedLevel = "Beginner" }
                 Button("Intermediate") { selectedLevel = "Intermediate" }
@@ -44,7 +42,6 @@ struct WorkoutPlanView: View {
                 .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
             }
 
-            // Library link
             HStack {
                 Text("Select Exercises")
                     .font(.headline)
@@ -57,7 +54,6 @@ struct WorkoutPlanView: View {
                 }
             }
 
-            // Exercise list
             ScrollView {
                 VStack(spacing: 12) {
                     ForEach(allExercises, id: \.self) { exercise in
@@ -82,7 +78,6 @@ struct WorkoutPlanView: View {
             }
             .frame(maxHeight: 350)
 
-            // Create Plan Button
             Button(action: {
                 generateWorkoutPlan()
                 showSummary = true
@@ -98,7 +93,6 @@ struct WorkoutPlanView: View {
 
             Spacer()
 
-            // Navigate to summary
             NavigationLink(
                 destination: WorkoutSummaryView(plan: generatedPlan, level: selectedLevel),
                 isActive: $showSummary

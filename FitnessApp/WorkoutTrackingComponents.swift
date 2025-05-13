@@ -7,15 +7,9 @@
 
 import SwiftUI
 
-// Component for displaying a statistic with icon and value
 struct StatCard: View {
-    /// The numeric value to display
     let value: String
-    
-    /// The unit of measurement (e.g. "min", "cal")
     let unit: String
-    
-    /// SF Symbol name for the icon
     let icon: String
     
     var body: some View {
@@ -41,13 +35,8 @@ struct StatCard: View {
 }
 
 struct ActiveWorkoutBanner: View {
-    // The active workout session
     let session: WorkoutSession
-    
-    // Access to workout tracking functionality
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
-    
-    // Controls display of the completion sheet
     @State private var showingCompletionSheet = false
     
     var body: some View {
@@ -62,7 +51,6 @@ struct ActiveWorkoutBanner: View {
                 
                 Spacer()
                 
-                // Elapsed time
                 Text(formatDuration(session.durationInSeconds))
                     .font(.title2)
                     .monospacedDigit()

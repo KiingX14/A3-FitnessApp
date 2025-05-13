@@ -5,12 +5,9 @@ import SwiftUI
 // View for starting a new workout
 struct NewWorkoutView: View {
     @Environment(\.dismiss) private var dismiss
-    
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
-    
     @State private var workoutName = ""
     
-    // Sample workout names for quick selection
     private let sampleWorkouts = ["Push Ups", "Mountain Climbers", "Squats", "Side Plank", "Squat", "Wall Sit", "Lunges", "Sit Ups", "Crunches", "Spider Crawl", "Plank"]
     
     var body: some View {
@@ -45,11 +42,5 @@ struct NewWorkoutView: View {
                 }
             }
         }
-    }
-}
-
-struct NewWorkoutView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewWorkoutView()
     }
 }

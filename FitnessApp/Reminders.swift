@@ -36,7 +36,7 @@ struct ReminderView: View {
         .background(Color(.systemGray6).ignoresSafeArea())
     }
 
-    // Reusable card-style button with icon
+    // Reusable button
     @ViewBuilder
     private func reminderCard(title: String, icon: String) -> some View {
         HStack(spacing: 12) {

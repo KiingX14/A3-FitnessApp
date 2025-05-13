@@ -1,22 +1,19 @@
+//
+//  WorkoutTrackingManager.swift
+//  FitnessApp
+//
+//  Created by William Tan on 12/5/2025.
+//
 
 import Foundation
 import SwiftUI
 
-// Manages all workout tracking functionality including data persistence, current workout state, and workout statistics 
 class WorkoutTrackingManager: ObservableObject {
-    // Shared singleton instance for app-wide access
     static let shared = WorkoutTrackingManager()
-    
-    // Complete history of all workout sessions
     @Published var workoutHistory: [WorkoutSession] = []
-    
-    // Currently active workout session (if any)
     @Published var currentSession: WorkoutSession?
-    
     @Published var isWorkoutActive: Bool = false
-    
     private var timer: Timer?
-    
     private var startTime: Date?
     
     init() {
@@ -28,8 +25,7 @@ class WorkoutTrackingManager: ObservableObject {
         currentSession = session
         isWorkoutActive = true
         startTime = Date()
-        
-        // Start timer for duration tracking
+
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.updateDuration()
         }

@@ -1,15 +1,15 @@
+//
+//  WorkoutTracking.swift
+//  FitnessApp
+//
+//  Created by William Tan on 12/5/2025.
+//
+
 import SwiftUI
 
-// Main workout tracking view ,the primary entry point for the workout tracking feature
-
 struct WorkoutTrackingView: View {
-    // Access to workout data and functionality
     @StateObject private var trackingManager = WorkoutTrackingManager.shared
-
-    // Controls display of the new workout form
     @State private var showingWorkoutForm = false
-
-    // Currently selected workout for detail view
     @State private var selectedSession: WorkoutSession?
 
     var body: some View {
@@ -77,7 +77,6 @@ struct WorkoutTrackingView: View {
     }
 }
 
-// Component for displaying a workout session in the history list
 struct WorkoutHistoryRow: View {
     // The workout session to display
     let session: WorkoutSession

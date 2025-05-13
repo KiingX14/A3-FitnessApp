@@ -32,7 +32,7 @@ struct CommunityView: View {
                                 .foregroundColor(.blue)
                         }
 
-                        // Notification dot
+                        // noti dot
                         Circle()
                             .fill(Color.red)
                             .frame(width: 10, height: 10)

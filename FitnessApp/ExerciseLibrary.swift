@@ -57,7 +57,7 @@ struct ExerciseLibraryView: View {
             Image(systemName: icon)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 30, height: 30) // 🛠 Ensures all icons are same size
+                .frame(width: 30, height: 30)
                 .foregroundColor(.blue)
 
             Text(title)

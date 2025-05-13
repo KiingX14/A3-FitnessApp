@@ -15,7 +15,6 @@ class CommunityViewModel: ObservableObject {
     }
 
     func loadPosts() {
-        // Softcoded
         posts = [
             CommunityPost(username: "Sarah", message: "Just finished a 10-minute stretch! Feeling refreshed 💪", timestamp: "2h ago"),
             CommunityPost(username: "Mike", message: "No time for gym? No worries—15 mins of home HIIT did the job 🔥", timestamp: "5h ago"),

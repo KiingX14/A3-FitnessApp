@@ -1,8 +1,12 @@
-
+//
+//  WorkoutDetailView.swift
+//  FitnessApp
+//
+//  Created by William Tan on 12/5/2025.
+//
 
 import SwiftUI
 
-// View for displaying the details of a completed workout
 struct WorkoutDetailView: View {
     // The workout session to display
     let session: WorkoutSession
@@ -10,7 +14,6 @@ struct WorkoutDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                // Header card
                 VStack(alignment: .leading) {
                     Text(session.workoutName)
                         .font(.title)
@@ -19,7 +22,6 @@ struct WorkoutDetailView: View {
                     Text(session.date.formatted(date: .long, time: .shortened))
                         .foregroundColor(.secondary)
                     
-                    // Stats row
                     HStack(spacing: 20) {
                         StatCard(value: "\(session.durationInSeconds / 60)", unit: "min", icon: "clock.fill")
                         StatCard(value: "\(session.caloriesBurned)", unit: "cal", icon: "flame.fill")
@@ -90,23 +92,6 @@ struct WorkoutDetailView: View {
         case .neutral: return .yellow
         case .tired: return .orange
         case .exhausted: return .red
-        }
-    }
-}
-
-// Preview provider for SwiftUI canvas
-struct WorkoutDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            WorkoutDetailView(session: WorkoutSession(
-                workoutName: "Sample Workout",
-                durationInSeconds: 1800,
-                caloriesBurned: 150,
-                completionPercentage: 85,
-                userRating: 4,
-                notes: "This was a great workout! I felt challenged but not overwhelmed.",
-                mood: .good
-            ))
         }
     }
 }

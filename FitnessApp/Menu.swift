@@ -15,20 +15,17 @@ struct MenuView: View {
     @State private var showImagePicker = false
     @State private var showNameEditor = false
     @State private var avatarAnimated = false
-
-    // Notification counts
     @State private var reminderCount = 3
     @State private var communityCount = 5
 
     var body: some View {
         VStack(spacing: 30) {
-            // App title
             Text("QuickFit")
                 .font(.system(size: 36, weight: .bold))
                 .foregroundColor(.black)
                 .padding(.top, 20)
 
-            // Top bar
+            // top bar
             HStack(spacing: 12) {
                 if !username.isEmpty {
                     Text("👋 Hello, \(username)")
@@ -108,7 +105,7 @@ struct MenuView: View {
         })
     }
 
-    // Reusable card-style menu button
+    // Reusable menu button
     @ViewBuilder
     private func menuCard(title: String, icon: String) -> some View {
         HStack(spacing: 12) {
@@ -128,8 +125,7 @@ struct MenuView: View {
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
     }
-
-    // Menu card with a red circular badge count
+    //
     @ViewBuilder
     private func menuCardWithBadge(title: String, icon: String, count: Int) -> some View {
         HStack(spacing: 12) {
