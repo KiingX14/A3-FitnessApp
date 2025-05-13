@@ -21,7 +21,6 @@ struct StartWorkoutView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            // Workout name input
             VStack(alignment: .leading, spacing: 6) {
                 Text("Workout Name")
                     .font(.subheadline)
@@ -35,7 +34,6 @@ struct StartWorkoutView: View {
             }
             .padding(.horizontal)
 
-            // Timer
             HStack {
                 Image(systemName: "clock")
                     .font(.headline)
@@ -44,7 +42,6 @@ struct StartWorkoutView: View {
             }
             .padding(.top)
 
-            // Progress
             ProgressView(value: progressValue)
                 .padding(.horizontal)
 
@@ -52,7 +49,6 @@ struct StartWorkoutView: View {
                 .font(.subheadline)
                 .foregroundColor(.secondary)
 
-            // Exercise list
             ScrollView {
                 VStack(spacing: 12) {
                     ForEach(workoutExercises.indices, id: \.self) { index in
