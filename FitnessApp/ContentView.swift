@@ -87,12 +87,12 @@ struct ContentView: View {
                     // Navigation Button
                     NavigationLink(destination: MenuView()) {
                         Text("Enter")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(username.trimmingCharacters(in: .whitespaces).isEmpty ? Color.gray : Color.blue)
+                            .font(.headline)
                             .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: 300)
+                            .background(username.trimmingCharacters(in: .whitespaces).isEmpty ? Color.gray : Color.blue)
                             .cornerRadius(12)
-                            .padding(.horizontal)
                     }
                     .disabled(username.trimmingCharacters(in: .whitespaces).isEmpty)
                     .opacity(animateCard ? 1 : 0)
@@ -119,7 +119,6 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Animal Picker Sheet (with highlight)
 struct AnimalPickerView: View {
     @Binding var selectedImage: String
     let animalImages: [String]
