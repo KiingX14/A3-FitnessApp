@@ -88,7 +88,7 @@ class WorkoutTrackingManager: ObservableObject {
                             calendar.isDate(currentDate, inSameDayAs: calendar.date(byAdding: .day, value: -1, to: today)!)
         
         if !isRecentWorkout {
-            return 0  // Streak broken if no recent workouts
+            return 0
         }
         
         // Count consecutive days
@@ -99,7 +99,7 @@ class WorkoutTrackingManager: ObservableObject {
                 streak += 1
                 currentDate = previousDate
             } else {
-                break  // Streak broken
+                break
             }
         }
         

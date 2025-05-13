@@ -1,10 +1,3 @@
-//
-//  Menu.swift
-//  FitnessApp
-//
-//  Created by Nathan Nourse on 9/5/2025.
-//
-
 import SwiftUI
 
 struct MenuView: View {
@@ -12,32 +5,39 @@ struct MenuView: View {
     @AppStorage("selectedAnimalImage") private var selectedAnimalImage: String = ""
     @Environment(\.presentationMode) var presentationMode
 
-    @State private var showImagePicker = false
+    @State private var isShowingAvatarSelector = false
     @State private var showNameEditor = false
-    @State private var avatarAnimated = false
+    @State private var isAvatarVisible = false
     @State private var reminderCount = 3
     @State private var communityCount = 5
 
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 24) {
+            // Title
             Text("QuickFit")
                 .font(.system(size: 36, weight: .bold))
                 .foregroundColor(.black)
                 .padding(.top, 20)
 
-            // top bar
-            HStack(spacing: 12) {
-                if !username.isEmpty {
-                    Text("👋 Hello, \(username)")
-                        .font(.headline)
-                        .foregroundColor(.black)
+            // Greeting + Avatar Section
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    if !username.isEmpty {
+                        Text("Hi there,")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Text(username)
+                            .font(.headline)
+                            .foregroundColor(.black)
+                    }
                 }
 
                 Spacer()
 
+                // Avatar with menu
                 Menu {
                     Button("Change Picture") {
-                        showImagePicker = true
+                        isShowingAvatarSelector = true
                     }
                     Button("Change Name") {
                         showNameEditor = true
@@ -48,45 +48,52 @@ struct MenuView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                 } label: {
-                    Group {
-                        if !selectedAnimalImage.isEmpty {
-                            Image(selectedAnimalImage)
-                                .resizable()
-                                .scaledToFill()
-                        } else {
-                            Image(systemName: "person.crop.circle")
-                                .resizable()
-                                .foregroundColor(.gray)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.white)
+                            .frame(width: 50, height: 50)
+                            .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
+
+                        Group {
+                            if !selectedAnimalImage.isEmpty {
+                                Image(selectedAnimalImage)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.crop.circle.fill")
+                                    .resizable()
+                                    .foregroundColor(.gray)
+                            }
                         }
+                        .frame(width: 36, height: 36)
+                        .scaleEffect(isAvatarVisible ? 1 : 0.85)
+                        .opacity(isAvatarVisible ? 1 : 0)
+                        .animation(.easeOut(duration: 0.5), value: isAvatarVisible)
                     }
-                    .frame(width: 40, height: 40)
-                    .clipShape(Circle())
-                    .scaleEffect(avatarAnimated ? 1 : 0.8)
-                    .opacity(avatarAnimated ? 1 : 0)
-                    .animation(.easeOut(duration: 0.5), value: avatarAnimated)
                 }
             }
             .padding(.horizontal)
             .onAppear {
-                avatarAnimated = true
+                isAvatarVisible = true
             }
 
-            // menu options
+            // Menu buttons
             VStack(spacing: 16) {
                 NavigationLink(destination: WorkoutPlanView()) {
-                    menuCard(title: "Workout Plans", icon: "dumbbell")
+                    navigationButtonStyle(title: "Workout Plans", icon: "dumbbell")
                 }
                 NavigationLink(destination: ExerciseLibraryView()) {
-                    menuCard(title: "Exercise Library", icon: "book")
+                    navigationButtonStyle(title: "Exercise Library", icon: "book")
                 }
                 NavigationLink(destination: WorkoutTrackingView()) {
-                    menuCard(title: "Workout Tracking", icon: "clock.arrow.circlepath")
+                    navigationButtonStyle(title: "Workout Tracking", icon: "clock.arrow.circlepath")
                 }
                 NavigationLink(destination: ReminderView()) {
-                    menuCardWithBadge(title: "Reminders", icon: "bell", count: reminderCount)
+                    navigationButtonStyleWithBadge(title: "Reminders", icon: "bell", count: reminderCount)
                 }
                 NavigationLink(destination: CommunityView()) {
-                    menuCardWithBadge(title: "Community", icon: "person.3.fill", count: communityCount)
+                    navigationButtonStyleWithBadge(title: "Community", icon: "person.3.fill", count: communityCount)
                 }
             }
             .padding(.horizontal)
@@ -94,7 +101,7 @@ struct MenuView: View {
             Spacer()
         }
         .background(Color(.systemGray6).ignoresSafeArea())
-        .sheet(isPresented: $showImagePicker) {
+        .sheet(isPresented: $isShowingAvatarSelector) {
             AnimalPickerView(selectedImage: $selectedAnimalImage, animalImages: [
                 "bear", "cat", "chicken", "duck", "meerkat", "owl", "panda", "unicorn1", "unicorn2", "wolf"
             ])
@@ -105,9 +112,9 @@ struct MenuView: View {
         })
     }
 
-    // Reusable menu button
+    // Standard navigation card
     @ViewBuilder
-    private func menuCard(title: String, icon: String) -> some View {
+    private func navigationButtonStyle(title: String, icon: String) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.title2)
@@ -121,13 +128,13 @@ struct MenuView: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Color.white)
         .cornerRadius(12)
+        .background(Color.white)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
     }
-    //
-    @ViewBuilder
-    private func menuCardWithBadge(title: String, icon: String, count: Int) -> some View {
+
+    // Badge version for notifications
+    private func navigationButtonStyleWithBadge(title: String, icon: String, count: Int) -> some View {
         HStack(spacing: 12) {
             ZStack(alignment: .topTrailing) {
                 Image(systemName: icon)
@@ -152,8 +159,8 @@ struct MenuView: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Color.white)
         .cornerRadius(12)
+        .background(Color.white)
         .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
     }
 }
