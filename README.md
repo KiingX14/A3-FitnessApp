@@ -1,4 +1,5 @@
 # A3-QuickFit
+Github: https://github.com/KiingX14/A3-FitnessApp
 
 Overview
 
@@ -33,6 +34,10 @@ Reminders
 - Manage and customize existing reminders
 - Never miss a planned workout session
 
+Community
+- Interactive place for users
+- Share thoughts about workout plans
+- Option to add posts for users
 
 Technologies Used
 - Swift
